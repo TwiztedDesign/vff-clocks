@@ -1,8 +1,8 @@
 {
   "name": "vff-clocks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/vff-ext.js",
   "scripts": {
     "test": "jest --coverage --no-cache",
     "test-watch": "jest --watchAll",
