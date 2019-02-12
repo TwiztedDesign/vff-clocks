@@ -5,11 +5,6 @@ export default class Stopwatch extends BasicClock {
         super();
         this._limit = '';
         this._initial = '';
-        this._reset = {
-            ui      : 'pulse',
-            value   : true,
-            label   : 'Click to reset'
-        };
     }
 
     connectedCallback() {
@@ -30,12 +25,11 @@ export default class Stopwatch extends BasicClock {
 
     format(timecode){
 
-        var seconds         = parseInt((timecode / 1000) % 60),
+        let seconds         = parseInt((timecode / 1000) % 60),
             minutes         = parseInt((timecode / (1000 * 60)));
 
         return this._pad(minutes) + ":" + this._pad(seconds);
     }
-
 
     get limit(){
         return this._limit;
@@ -55,21 +49,24 @@ export default class Stopwatch extends BasicClock {
             // this._update();
         }
     }
-    get reset(){
-        return this._reset;
-    }
+
     set reset(value){
         this._time = this._initial * 1000 || 0;
         this._update();
     }
 
-
-
     expose(){
-        var exposed = super.expose();
-        exposed['fromTime'] = "initial";
-        exposed['toTime'] = "limit";
-        exposed.Reset = 'reset';
+        let exposed = super.expose();
+        exposed.initial = 'initial';
+        exposed.limit = 'limit';
+        exposed.reset = {
+            path : 'reset',
+            value : true,
+            ui : {
+                type : 'pulse',
+                label : 'Click to reset'
+            }
+        };
         return exposed;
     }
 

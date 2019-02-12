@@ -831,11 +831,6 @@ var Stopwatch = function (_BasicClock) {
 
         _this._limit = '';
         _this._initial = '';
-        _this._reset = {
-            ui: 'pulse',
-            value: true,
-            label: 'Click to reset'
-        };
         return _this;
     }
 
@@ -871,9 +866,16 @@ var Stopwatch = function (_BasicClock) {
         key: 'expose',
         value: function expose() {
             var exposed = _get(Stopwatch.prototype.__proto__ || Object.getPrototypeOf(Stopwatch.prototype), 'expose', this).call(this);
-            exposed['fromTime'] = "initial";
-            exposed['toTime'] = "limit";
-            exposed.Reset = 'reset';
+            exposed.initial = 'initial';
+            exposed.limit = 'limit';
+            exposed.reset = {
+                path: 'reset',
+                value: true,
+                ui: {
+                    type: 'pulse',
+                    label: 'Click to reset'
+                }
+            };
             return exposed;
         }
     }, {
@@ -898,9 +900,6 @@ var Stopwatch = function (_BasicClock) {
         }
     }, {
         key: 'reset',
-        get: function get() {
-            return this._reset;
-        },
         set: function set(value) {
             this._time = this._initial * 1000 || 0;
             this._update();
